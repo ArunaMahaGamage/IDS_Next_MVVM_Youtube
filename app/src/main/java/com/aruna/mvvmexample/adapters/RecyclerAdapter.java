@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private RecyclerAdapterEvent recyclerAdapterEvent;
     private List<NicePlace> mNicePlaces = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerAdapter(Context context, List<NicePlace> nicePlaces) {
+    public RecyclerAdapter(Context context, List<NicePlace> nicePlaces, RecyclerAdapterEvent recyclerAdapterEvents) {
         mNicePlaces = nicePlaces;
         mContext = context;
+        recyclerAdapterEvent = recyclerAdapterEvents;
     }
 
     @NonNull
@@ -68,6 +71,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         MediaController ctrl = new MediaController(mContext);
         ctrl.setVisibility(View.GONE);
         ((ViewHolder)viewHolder).Vv.setMediaController(ctrl);
+
+//        if ((mNicePlaces.size() -1) == i) {
+        if(false) {
+            Log.e("RecyclerAdapter ", "mNicePlaces.size() " + (mNicePlaces.size() - 1) + " position i " + i);
+            recyclerAdapterEvent.stayPosition(i);
+        }
     }
 
     @Override
@@ -87,5 +96,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mName = itemView.findViewById(R.id.image_name);
             Vv = (VideoView) itemView.findViewById(R.id.videoView);
         }
+    }
+
+    public interface RecyclerAdapterEvent {
+        void stayPosition(int pos);
     }
 }

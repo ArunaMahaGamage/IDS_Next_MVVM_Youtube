@@ -42,7 +42,7 @@ public class MainActivityViewModel extends ViewModel {
             protected Void doInBackground(Void... voids) {
 
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
