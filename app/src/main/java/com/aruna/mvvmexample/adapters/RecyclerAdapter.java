@@ -50,6 +50,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         // Set the name of the 'NicePlace'
         ((ViewHolder)viewHolder).mName.setText(mNicePlaces.get(i).getTitle());
+        ((ViewHolder)viewHolder).mDetails.setText(mNicePlaces.get(i).getTitle());
 
         // Set the image
         RequestOptions defaultOptions = new RequestOptions()
@@ -90,13 +91,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private CircleImageView mImage;
-        private TextView mName;
+        private TextView mName, mDetails;
         private VideoView Vv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mImage = itemView.findViewById(R.id.image);
             mName = itemView.findViewById(R.id.image_name);
+            mDetails = itemView.findViewById(R.id.mDetails);
             Vv = (VideoView) itemView.findViewById(R.id.videoView);
             Vv.setOnClickListener(this);
         }
