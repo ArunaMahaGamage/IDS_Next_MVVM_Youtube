@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFab = findViewById(R.id.fab);
+//        mFab = findViewById(R.id.fab);
         mRecyclerView = findViewById(R.id.recycler_view);
         mProgressBar = findViewById(R.id.progress_bar);
 
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
             }
         });
 
-        mFab.setOnClickListener(new View.OnClickListener() {
+        /*mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMainActivityViewModel.addNewValue(
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
                         )
                 );
             }
-        });
+        });*/
 
         initRecyclerView();
 
