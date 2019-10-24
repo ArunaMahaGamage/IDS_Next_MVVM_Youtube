@@ -62,9 +62,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
         mMainActivityViewModel.getNicePlaces().observe(this, new Observer<List<NicePlace>>() {
             @Override
             public void onChanged(@Nullable List<NicePlace> nicePlaces) {
-                if (start == lastVisibleItem) {
-                    mAdapter.notifyDataSetChanged();
-                }
+                mAdapter.notifyDataSetChanged();
                 loading = false;
             }
         });
@@ -139,10 +137,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
                     start = totalItemCount;
 
                     mMainActivityViewModel.addNewValue(
-                            new NicePlace(
-                                    "https://i.imgur.com/ZcLLrkY.jpg",
-                                    "Washington"
-                            )
+                            new NicePlace("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
+                                    "Havasu Falls")
                     );
                 }
             }
