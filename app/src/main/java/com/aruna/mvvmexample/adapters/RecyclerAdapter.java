@@ -1,7 +1,9 @@
 package com.aruna.mvvmexample.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.aruna.mvvmexample.DetailsActivity;
 import com.aruna.mvvmexample.R;
 import com.aruna.mvvmexample.models.NicePlace;
 import com.bumptech.glide.Glide;
@@ -84,7 +87,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mNicePlaces.size();
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder{
+    private class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private CircleImageView mImage;
         private TextView mName;
@@ -95,10 +98,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mImage = itemView.findViewById(R.id.image);
             mName = itemView.findViewById(R.id.image_name);
             Vv = (VideoView) itemView.findViewById(R.id.videoView);
+            Vv.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            int position = v.getVerticalScrollbarPosition();
+//            recyclerAdapterEvent.onClick(v.getVerticalScrollbarPosition());
+            Intent intent = new Intent(mContext, DetailsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("title", mNicePlaces.get(position).getTitle());
+            bundle.putString("image", mNicePlaces.get(position).getImageUrl());
+            mContext.startActivity(intent);
         }
     }
 
     public interface RecyclerAdapterEvent {
         void stayPosition(int pos);
+//        void onClick(int position);
     }
 }
