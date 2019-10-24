@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
                     showProgressBar();
                 } else {
                     hideProgressBar();
-                    mRecyclerView.smoothScrollToPosition(mMainActivityViewModel.getNicePlaces().getValue().size()-1);
+//                    mRecyclerView.smoothScrollToPosition(mMainActivityViewModel.getNicePlaces().getValue().size()-1);
                 }
             }
         });
@@ -135,13 +135,48 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
                     loading = true;
                     start = totalItemCount;
 
-                    mMainActivityViewModel.addNewValue(
-                            new NicePlace("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
-                                    "Havasu Falls")
-                    );
+                    setNicePlaces();
                 }
             }
         });
     }
 
+    private void setNicePlaces(){
+        mMainActivityViewModel.addNewValue(
+                new NicePlace("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
+                        "Havasu Falls")
+        );
+        mMainActivityViewModel.addNewValue(
+                new NicePlace("https://i.redd.it/tpsnoz5bzo501.jpg",
+                        "Trondheim")
+        );
+        mMainActivityViewModel.addNewValue(
+                new NicePlace("https://i.redd.it/qn7f9oqu7o501.jpg",
+                        "Portugal")
+        );
+        mMainActivityViewModel.addNewValue(
+                new NicePlace("https://i.redd.it/j6myfqglup501.jpg",
+                        "Rocky Mountain National Park")
+        );
+        mMainActivityViewModel.addNewValue(
+                new NicePlace("https://i.redd.it/0h2gm1ix6p501.jpg",
+                        "Havasu Falls")
+        );
+        mMainActivityViewModel.addNewValue(
+                new NicePlace("https://i.redd.it/k98uzl68eh501.jpg",
+                        "Mahahual")
+        );
+        mMainActivityViewModel.addNewValue(
+                new NicePlace("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
+                        "Frozen Lake")
+        );
+        mMainActivityViewModel.addNewValue(
+                new NicePlace("https://i.redd.it/obx4zydshg601.jpg",
+                        "Austrailia")
+        );
+        mMainActivityViewModel.addNewValue(
+                new NicePlace("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
+                        "Havasu Falls")
+        );
+    }
 }
