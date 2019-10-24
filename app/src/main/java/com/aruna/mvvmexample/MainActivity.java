@@ -129,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
 
                 Log.e("stayPosition " , " totalItemCount " + totalItemCount + " lastVisibleItem " + lastVisibleItem + " loading " + loading);
-//                if (!loading && totalItemCount <= (lastVisibleItem + VISIBLE_THRESHOLD)) {
                 if (!loading && totalItemCount <= (lastVisibleItem + VISIBLE_THRESHOLD)) {
                     pageNumber++;
                     paginator.onNext(pageNumber);
