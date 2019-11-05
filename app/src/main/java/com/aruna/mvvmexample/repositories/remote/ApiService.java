@@ -1,7 +1,6 @@
 package com.aruna.mvvmexample.repositories.remote;
 
 import com.aruna.mvvmexample.models.NicePlace;
-import com.aruna.mvvmexample.repositories.remote.models.VideoList;
 
 import java.util.ArrayList;
 
@@ -19,6 +18,6 @@ public interface ApiService {
     // Create note
     @FormUrlEncoded
     @POST("android/video.php")
-    Single<ArrayList<NicePlace>> callVideo(@Field("id") String id);
+    Single<ArrayList<NicePlace>> callVideo(@Field("id") int id);
 
 }

@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 
 import com.aruna.mvvmexample.adapters.RecyclerAdapter;
 import com.aruna.mvvmexample.models.NicePlace;
+import com.aruna.mvvmexample.repositories.remote.ApiClient;
+import com.aruna.mvvmexample.repositories.remote.ApiService;
 import com.aruna.mvvmexample.viewmodels.MainActivityViewModel;
 
 import java.util.ArrayList;
@@ -24,13 +26,15 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.processors.PublishProcessor;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements RecyclerAdapter.RecyclerAdapterEvent {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private ApiService apiService;
+    private CompositeDisposable disposable = new CompositeDisposable();
     private PublishProcessor<Integer> paginator = PublishProcessor.create();
     private int pageNumber = 1;
     private boolean loading = false;
@@ -50,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        apiService = ApiClient.getClient(getApplicationContext()).create(ApiService.class);
+        apiService = ApiClient.getApiClient(getApplicationContext()).create(ApiService.class);
 
 //        mFab = findViewById(R.id.fab);
         mRecyclerView = findViewById(R.id.recycler_view);
@@ -135,10 +142,34 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
                     loading = true;
                     start = totalItemCount;
 
-                    setNicePlaces();
+//                    setNicePlaces();
+                    videoList(pageNumber);
                 }
             }
         });
+    }
+
+    private void videoList(int id) {
+        disposable.add(
+                apiService.callVideo(id)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<ArrayList<NicePlace>>() {
+
+                            @Override
+                            public void onSuccess(ArrayList<NicePlace> places) {
+                                Log.d(TAG, "Note updated! " + places.get(0).getTitle());
+                                for (int i = 0; i < places.size(); i++) {
+                                    mMainActivityViewModel.addNewValue(places.get(i)
+                                    );
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.e(TAG, "onError: " + e.getMessage());
+                            }
+                        }));
     }
 
     private void setNicePlaces(){
