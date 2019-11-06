@@ -2,6 +2,7 @@ package com.aruna.mvvmexample;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -48,12 +49,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
     private RecyclerAdapter mAdapter;
     private ProgressBar mProgressBar;
     private MainActivityViewModel mMainActivityViewModel;
+    private Context context;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        context = getApplicationContext();
 
 //        apiService = ApiClient.getClient(getApplicationContext()).create(ApiService.class);
         apiService = ApiClient.getApiClient(getApplicationContext()).create(ApiService.class);
@@ -64,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
 
         mMainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
 
-        mMainActivityViewModel.init();
+        mMainActivityViewModel.init(context);
 
         mMainActivityViewModel.getNicePlaces().observe(this, new Observer<List<NicePlace>>() {
             @Override
@@ -168,6 +172,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
                             @Override
                             public void onError(Throwable e) {
                                 Log.e(TAG, "onError: " + e.getMessage());
+                                mMainActivityViewModel.addNewValue(
+                                        new NicePlace("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
+                                                "Havasu Falls","https://www.radiantmediaplayer.com/media/bbb-360p.mp4")
+                                );
                             }
                         }));
     }

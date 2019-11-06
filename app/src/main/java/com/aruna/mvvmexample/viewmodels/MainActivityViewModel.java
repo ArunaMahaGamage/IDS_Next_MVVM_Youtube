@@ -3,6 +3,7 @@ package com.aruna.mvvmexample.viewmodels;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
 import android.os.AsyncTask;
 
 
@@ -13,15 +14,18 @@ import java.util.List;
 
 public class MainActivityViewModel extends ViewModel {
 
+    private Context context;
     private MutableLiveData<List<NicePlace>> mNicePlaces;
     private NicePlaceRepository mRepo;
     private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
 
-    public void init(){
+    public void init(Context contexts){
         if(mNicePlaces != null){
             return;
         }
+        context  = contexts;
         mRepo = NicePlaceRepository.getInstance();
+        mRepo.setContext(context);
         mNicePlaces = mRepo.getNicePlaces();
     }
 
