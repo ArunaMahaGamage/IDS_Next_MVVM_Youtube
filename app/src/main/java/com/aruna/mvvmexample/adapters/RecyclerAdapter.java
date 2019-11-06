@@ -53,29 +53,30 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ((ViewHolder)viewHolder).mDetails.setText(mNicePlaces.get(i).getTitle());
 
         // Set the image
-        RequestOptions defaultOptions = new RequestOptions()
-                .error(R.drawable.ic_launcher_background);
-        Glide.with(mContext)
-                .setDefaultRequestOptions(defaultOptions)
-                .load(mNicePlaces.get(i).getImageUrl())
-                .into(((ViewHolder)viewHolder).mImage);
+        if (!(mNicePlaces.get(i).getVideo_url().equalsIgnoreCase(""))) {
+            RequestOptions defaultOptions = new RequestOptions()
+                    .error(R.drawable.ic_launcher_background);
+            Glide.with(mContext)
+                    .setDefaultRequestOptions(defaultOptions)
+                    .load(mNicePlaces.get(i).getImageUrl())
+                    .into(((ViewHolder) viewHolder).mImage);
 
 //        String link = "http://learntv.lk/playlists/grade-10_playlist_medium.m3u8";
-        String link = "https://www.radiantmediaplayer.com/media/bbb-360p.mp4";
+            String link = mNicePlaces.get(i).getVideo_url();
 
-        ((ViewHolder)viewHolder).Vv.setVideoURI(Uri.parse(link));
-        ((ViewHolder)viewHolder).Vv.setMediaController(new MediaController(mContext));
-        ((ViewHolder)viewHolder).Vv.requestFocus();
-        new Thread(new Runnable() {
-            public void run() {
-                ((ViewHolder)viewHolder).Vv.start();
-            }
-        }).start();
+            ((ViewHolder) viewHolder).Vv.setVideoURI(Uri.parse(link));
+            ((ViewHolder) viewHolder).Vv.setMediaController(new MediaController(mContext));
+            ((ViewHolder) viewHolder).Vv.requestFocus();
+            new Thread(new Runnable() {
+                public void run() {
+                    ((ViewHolder) viewHolder).Vv.start();
+                }
+            }).start();
 
-        MediaController ctrl = new MediaController(mContext);
-        ctrl.setVisibility(View.GONE);
-        ((ViewHolder)viewHolder).Vv.setMediaController(ctrl);
-
+            MediaController ctrl = new MediaController(mContext);
+            ctrl.setVisibility(View.GONE);
+            ((ViewHolder) viewHolder).Vv.setMediaController(ctrl);
+        }
 //        if ((mNicePlaces.size() -1) == i) {
         if(false) {
             Log.e("RecyclerAdapter ", "mNicePlaces.size() " + (mNicePlaces.size() - 1) + " position i " + i);

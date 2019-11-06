@@ -44,6 +44,10 @@ public class NicePlaceRepository {
 //        setNicePlaces();
         videoList(1);
         MutableLiveData<List<NicePlace>> data = new MutableLiveData<>();
+        dataSet.add(
+                new NicePlace("",
+                        "","")
+        );
         data.setValue(dataSet);
         return data;
     }
@@ -59,57 +63,19 @@ public class NicePlaceRepository {
                             public void onSuccess(ArrayList<NicePlace> places) {
                                 Log.d(TAG, "Note updated! " + places.get(0).getTitle());
                                 for (int i = 0; i < places.size(); i++) {
-                                    dataSet.add(
-                                            new NicePlace("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
-                                                    "Havasu Falls","https://www.radiantmediaplayer.com/media/bbb-360p.mp4")
-                                    );
+                                    dataSet.add(places.get(i));
                                 }
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 Log.e(TAG, "onError: " + e.getMessage());
+
                                 dataSet.add(
                                         new NicePlace("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
                                                 "Havasu Falls","https://www.radiantmediaplayer.com/media/bbb-360p.mp4")
                                 );
                             }
                         }));
-    }
-
-
-    private void setNicePlaces(){
-        dataSet.add(
-                new NicePlace("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
-                        "Havasu Falls","https://www.radiantmediaplayer.com/media/bbb-360p.mp4")
-        );
-        dataSet.add(
-                new NicePlace("https://i.redd.it/tpsnoz5bzo501.jpg",
-                        "Trondheim","https://www.radiantmediaplayer.com/media/bbb-360p.mp4")
-        );
-        dataSet.add(
-                new NicePlace("https://i.redd.it/qn7f9oqu7o501.jpg",
-                        "Portugal","https://www.radiantmediaplayer.com/media/bbb-360p.mp4")
-        );
-        dataSet.add(
-                new NicePlace("https://i.redd.it/j6myfqglup501.jpg",
-                        "Rocky Mountain National Park","https://www.radiantmediaplayer.com/media/bbb-360p.mp4")
-        );
-        dataSet.add(
-                new NicePlace("https://i.redd.it/0h2gm1ix6p501.jpg",
-                        "Havasu Falls","https://www.radiantmediaplayer.com/media/bbb-360p.mp4")
-        );
-        dataSet.add(
-                new NicePlace("https://i.redd.it/k98uzl68eh501.jpg",
-                        "Mahahual","https://www.radiantmediaplayer.com/media/bbb-360p.mp4")
-        );
-        dataSet.add(
-                new NicePlace("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
-                        "Frozen Lake","https://www.radiantmediaplayer.com/media/bbb-360p.mp4")
-        );
-        dataSet.add(
-                new NicePlace("https://i.redd.it/obx4zydshg601.jpg",
-                        "Austrailia","https://www.radiantmediaplayer.com/media/bbb-360p.mp4")
-        );
     }
 }
