@@ -5,5 +5,5 @@ package com.aruna.mvvmexample.repositories.remote;
  */
 
 public class Const {
-    public static final String BASE_URL = "http://192.168.8.100/";
+    public static final String BASE_URL = "http://sltaxi.ddns.net/";
 }
